@@ -34,6 +34,14 @@ async function main() {
             case "help":
                 actions.helpActions.helpFunction();
                 break;
+            case "get":
+                try {
+                    const result = await actions.getActions.getTask();
+                    console.log(result);
+                } catch (error) {
+                    console.log(error.message);
+                }
+                break;
             default:
                 console.log("Unknown command, try 'help'");
                 break;
