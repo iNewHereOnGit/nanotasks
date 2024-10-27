@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import * as actions from "./utilities/actionLoader.js";
 import { getInput } from "./utilities/inputReader.js";
 
@@ -30,6 +31,14 @@ async function main() {
             case "exit":
                 actions.exitActions.exitApp();
                 running = false;
+                break;
+            case "edit":
+                try {
+                    const result = await actions.editActions.editTask();
+                    console.log(result);
+                } catch (error) {
+                    console.log(error.message);
+                }
                 break;
             case "help":
                 actions.helpActions.helpFunction();

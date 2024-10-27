@@ -35,16 +35,15 @@ const commands = {
         ],
     },
 
-    list: {
-        name: "list",
-        description:
-            "List tasks with an optional filter, omit filter to show all tasks",
-        example: "list [filter]",
+    get: {
+        name: "get",
+        description: "Retrieve a single task or all tasks if no ID is provided",
+        example: "list [id]",
         parameters: [
             {
-                name: "filter",
-                type: "string",
-                description: "The filter to apply to the tasks",
+                name: "id",
+                type: "integer",
+                description: "The ID of the task to retrieve",
                 required: false,
                 default: "*",
             },
