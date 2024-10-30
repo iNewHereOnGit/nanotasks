@@ -40,6 +40,14 @@ async function main() {
                     console.log(error.message);
                 }
                 break;
+            case "delete":
+                try {
+                    const result = await actions.deleteActions.deleteTask();
+                    console.log(result);
+                } catch (error) {
+                    console.log(error.message);
+                }
+                break;
             case "help":
                 actions.helpActions.helpFunction();
                 break;
