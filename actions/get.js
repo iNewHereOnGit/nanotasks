@@ -1,12 +1,14 @@
 import { getInput } from "../utilities/inputReader.js";
 import { db } from "../utilities/database.js";
+import { Task } from "../types/task.js";
 const getTask = async () => {
     const rawId = await getInput("Enter ID or leave blank for all tasks: ");
     let trimmedId = rawId.trim();
     let singleRow;
 
     if (trimmedId === "") {
-        return db.prepare("SELECT * FROM tasks").all();
+        let tasks = db.prepare("SELECT * FROM tasks").all();
+        return tasks;
     }
 
     trimmedId = Number.parseInt(trimmedId, 10);
