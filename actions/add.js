@@ -16,9 +16,10 @@ const addTask = async () => {
 	}
 
 	let task = new Task(trimmedName, trimmedDescription);
+	let info;
 
 	try {
-		const info = db
+		 info = db
 			.prepare('INSERT INTO tasks (title, description) VALUES (?,?)')
 			.run(task.name, task.description);
 	} catch (error) {
