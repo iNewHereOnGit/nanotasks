@@ -19,7 +19,7 @@ const addTask = async () => {
 	let info;
 
 	try {
-		 info = db
+		info = db
 			.prepare('INSERT INTO tasks (title, description) VALUES (?,?)')
 			.run(task.name, task.description);
 	} catch (error) {
@@ -27,7 +27,7 @@ const addTask = async () => {
 	}
 
 	if (info.changes >= 1) {
-		return `[Success] Created task '${task.name}'\n[Tip] Use 'get task ${task.name}' or 'set task ${info.lastInsertRowid}' to update this task\n`;
+		return `[Success] Created task '${task.name}'\n[Tip] Use 'get task ${task.name}' or 'edit task ${info.lastInsertRowid}' to update this task\n`;
 	} else {
 		throw new Error('[ERROR] Task could not be added, try again');
 	}
