@@ -1,101 +1,102 @@
 const commands = {
-    add: {
-        name: "add",
-        description:
-            "Create a new task with an optional description, priority, and completed status",
-        example: "add <name> [description] [priority] [completed]",
-        parameters: [
-            {
-                name: "name",
-                type: "string",
-                description: "The task to add",
-                required: true,
-            },
-            {
-                name: "description",
-                type: "string",
-                description: "The description of the task",
-                required: false,
-                default: "",
-            },
-            {
-                name: "priority",
-                type: "number",
-                description: "The priority of the task",
-                required: false,
-                default: 0,
-            },
-            {
-                name: "completed",
-                type: "boolean",
-                description: "Whether the task is completed or not",
-                required: false,
-                default: false,
-            },
-        ],
-    },
+	add: {
+		name: 'add',
+		description:
+			'Adds a new task. You can optionally include a description, priority, and completion status.',
+		usage: 'add <name> [description] [priority] [completed]',
+		parameters: [
+			{
+				name: 'name',
+				description: 'The name of the task (required).',
+				type: 'string',
+				required: true
+			},
+			{
+				name: 'description',
+				description: 'A description of the task.',
+				type: 'string',
+				required: false
+			},
+			{
+				name: 'priority',
+				description: 'The priority of the task (default: 0).',
+				type: 'number',
+				required: false,
+				default: 0
+			},
+			{
+				name: 'completed',
+				description: 'Whether the task is completed (default: false).',
+				type: 'boolean',
+				required: false,
+				default: false
+			}
+		]
+	},
 
-    get: {
-        name: "get",
-        description: "Retrieve a single task or all tasks if no ID is provided",
-        example: "list [id]",
-        parameters: [
-            {
-                name: "id",
-                type: "integer",
-                description: "The ID of the task to retrieve",
-                required: false,
-                default: "*",
-            },
-        ],
-    },
+	get: {
+		name: 'get',
+		description:
+			'Retrieves a task. If no ID is provided, all tasks are retrieved.',
+		usage: 'get [id]',
+		parameters: [
+			{
+				name: 'id',
+				description:
+					'The ID of the task to retrieve. If omitted, all tasks are returned.',
+				type: 'integer',
+				required: false,
+				default: '*'
+			}
+		]
+	},
 
-    edit: {
-        name: "edit",
-        description: "Edit a task",
-        example: "edit <id> <field> <value>",
-        parameters: [
-            {
-                name: "id",
-                type: "number",
-                description: "The ID of the task to edit",
-                required: true,
-            },
-            {
-                name: "field",
-                type: "string",
-                description: "The field to edit",
-                required: true,
-            },
-            {
-                name: "value",
-                type: "string|boolean|number",
-                description: "The new value for the field",
-                required: true,
-            },
-        ],
-    },
+	edit: {
+		name: 'edit',
+		description: 'Edits an existing task.',
+		usage: 'edit <id> <field> <value>',
+		parameters: [
+			{
+				name: 'id',
+				description: 'The ID of the task to edit (required).',
+				type: 'number',
+				required: true
+			},
+			{
+				name: 'field',
+				description: 'The field to edit (required).',
+				type: 'string',
+				required: true
+			},
+			{
+				name: 'value',
+				description: 'The new value for the field (required).',
+				type: 'string | boolean | number',
+				required: true
+			}
+		]
+	},
 
-    delete: {
-        name: "delete",
-        description: "Delete a task",
-        example: "delete <id>",
-        parameters: [
-            {
-                name: "id",
-                type: "number",
-                description: "The ID of the task to delete",
-                required: true,
-            },
-        ],
-    },
+	delete: {
+		name: 'delete',
+		description: 'Deletes a task.',
+		usage: 'delete <id>',
+		parameters: [
+			{
+				name: 'id',
+				description: 'The ID of the task to delete (required).',
+				type: 'number',
+				required: true
+			}
+		]
+	},
 
-    exit: {
-        name: "exit",
-        description: "Exit NanoTasks",
-        example: "exit",
-        parameters: null,
-    },
+	exit: {
+		name: 'exit',
+		description: 'Exits the NanoTasks application.',
+		usage: 'exit',
+		parameters: null
+	}
 };
 
 export default commands;
