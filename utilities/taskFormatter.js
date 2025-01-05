@@ -1,3 +1,20 @@
+const sortTasks = (userInput, tasks, ascending) => {
+	switch (userInput.trim().toLowerCase()) {
+		case 'title':
+			return sortTasksByTitle(tasks, ascending);
+		case 'priority':
+			return sortTasksByPriority(tasks, ascending);
+		case 'completed':
+			return sortTasksByCompletion(tasks, ascending);
+		case '':
+			return sortTasksByTitle(tasks, ascending);
+		default:
+			throw new Error(
+				'[ERROR] Invalid sort criteria: must be title, priority or completed'
+			);
+	}
+};
+
 const sortTasksByPriority = (tasks, ascending) => {
 	if (ascending) {
 		return tasks.sort((a, b) => a.priority - b.priority);
@@ -6,11 +23,11 @@ const sortTasksByPriority = (tasks, ascending) => {
 	}
 };
 
-const sortTasksByName = (tasks, ascending) => {
+const sortTasksByTitle = (tasks, ascending) => {
 	if (ascending) {
-		return tasks.sort((a, b) => a.title - b.title);
+		return tasks.sort((a, b) => a.title.localeCompare(b.title));
 	} else {
-		return tasks.sort((a, b) => b.title - a.title);
+		return tasks.sort((a, b) => b.title.localeCompare(a.title));
 	}
 };
 
@@ -30,10 +47,22 @@ const filterTasksByPriority = (tasks, targetPriority) => {
 	return tasks.filter((task) => task.priority === targetPriority);
 };
 
-export {
-	sortTasksByPriority,
-	sortTasksByName,
-	sortTasksByCompletion,
-	filterTasksByStatus,
-	filterTasksByPriority
+/**
+ * Formats Tasks
+ * @param {Task[]} tasks
+ * @returns {Task[]}
+ */
+const formatTaskList = (tasks) => {
+	let formattedTasks = [];
+	tasks.forEach((task) => {
+		let formattedTask =
+			'* ' +
+			task.title +
+			' - ' +
+			task.description +
+			` [P${task.priority}]`;
+		formattedTasks.push(formattedTask);
+	});
+	return formattedTasks;
 };
+export { sortTasks, formatTaskList };
