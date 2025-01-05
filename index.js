@@ -9,7 +9,9 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 process.on('exit', () => {
-	console.log('Exiting NanoTasks, goodbye!');
+	console.log(
+		'exiting NanoTasks, goodbye! contact iNewHereOnGit on GitHub for support'
+	);
 	actions.exitActions.exitApp();
 });
 
@@ -64,8 +66,8 @@ async function main() {
 					);
 					result.forEach((task) => {
 						console.log(task);
-                    });
-                    console.log(
+					});
+					console.log(
 						'=================== end current tasks ====================='
 					);
 				} catch (error) {
