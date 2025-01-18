@@ -1,22 +1,20 @@
-import { DateTime } from 'luxon';
-
 class Task {
 	constructor(
 		name,
 		description,
-		priority = 0,
-		completed = 0,
-		dueDate,
-		createdDate = DateTime.utc().toSeconds(),
-		modifiedDate
+		priority,
+		completed,
+		due,
+		created,
+		modified
 	) {
 		this.name = name;
 		this.description = description;
 		this.priority = priority;
 		this.completed = completed;
-		this.dueDate = dueDate;
-		this.createdDate = createdDate;
-		this.modifiedDate = modifiedDate;
+		this.due = due;
+		this.created = created;
+		this.modified = modified;
 	}
 }
 
