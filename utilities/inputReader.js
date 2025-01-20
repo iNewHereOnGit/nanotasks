@@ -21,10 +21,15 @@ const getInput = async (question) => {
 /**
  * Split user input into individual tokens. trims whitespace and converts first token to lowercase
  * @param {string} input
- * @returns {string[]}
+ * @returns {string[]} An array of tokens, error if empty input
  */
-const splitTokens = (input) => {
-	let tokens = input.split(/\s+/);
+const splitTokens = async (input) => {
+	const trimmedInput = input.trim();
+
+	if (trimmedInput === '')
+		throw new Error(`[ERROR] Empty input, use 'help' for help`);
+
+	let tokens = trimmedInput.split(/\s+/);
 	tokens = tokens.map((token) => token.trim());
 	tokens[0] = tokens[0].toLowerCase();
 	return tokens;

@@ -10,9 +10,9 @@ rl.prompt();
 
 rl.on('line', async (input) => {
 	input = input.trim();
-	const tokens = splitTokens(input);
-
-	console.log(tokens);
+	const values = await splitTokens(input).catch((err) => {
+		console.log(err.message, '\n');
+	});
 
 	rl.prompt();
 }).on('close', () => {
