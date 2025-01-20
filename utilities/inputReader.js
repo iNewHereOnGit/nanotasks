@@ -24,10 +24,18 @@ const getInput = async (question) => {
  * @returns {string[]} An array of tokens, error if empty input
  */
 const splitTokens = async (input) => {
+	const quotePattern = /\"/g;
 	const trimmedInput = input.trim();
 
 	if (trimmedInput === '')
 		throw new Error(`[ERROR] Empty input, use 'help' for help`);
+
+	const quotesCount = [...trimmedInput.matchAll(quotePattern)].length;
+
+	if (quotesCount % 2 !== 0)
+		throw new Error(
+			`[ERROR] Invalid string argument, are you missing a quote? use 'help' for help`
+		);
 
 	let tokens = trimmedInput.split(/\s+/);
 	tokens = tokens.map((token) => token.trim());
