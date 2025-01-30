@@ -1,28 +1,17 @@
-import { getInput } from '../utilities/inputReader.js';
-import { db } from '../utilities/database.js';
-import { Task } from '../types/task.js';
-import { sortTasks, formatTaskList } from '../utilities/taskFormatter.js';
-
-/**
- * Retrieve a single task or multiple tasks - defaults to all tasks
- * @returns {Task[]} Tasks
- */
-const getTask = async () => {
-	const rawId = await getInput('Enter ID (blank for all): ');
-
-	if (rawId === '') {
-		const rawUserInputSortType = await getInput(
-			'Enter task sorting (blank for default): '
-		);
-		return getAllTasks(rawUserInputSortType);
-	} else {
-		return getSingleTaskById(rawId);
-	}
-};
+import { getInput } from "../utilities/inputReader.js";
+import { db } from "../utilities/database.js";
+import { Task } from "../types/task.js";
+import { sortTasks, formatTaskList } from "../utilities/taskFormatter.js";
+import { isValidTaskId } from "../utilities/inputValidator.js";
 
 const getAllTasks = (sortType) => {
 	try {
-		const rawTasks = db.prepare('SELECT * FROM tasks').all();
+		const rawTasks = db.prepare("SELECT * FROM tasks").all();
+
+		if (rawTasks.length === 0) {
+			return [`(warn) no tasks found, try adding a task with the 'add' command`];
+		}
+
 		const sortedTasks = sortTasks(sortType, rawTasks, true);
 		return formatTaskList(sortedTasks);
 	} catch (error) {
@@ -31,36 +20,30 @@ const getAllTasks = (sortType) => {
 };
 
 /**
- * Retrieves a single task
- * @param {number} targetId
- * @returns {Task}
+ * Retrieves a single task by ID
+ * @param {number} rawInput
+ * @returns {Task} Task
  */
-const getSingleTaskById = (targetId) => {
-	let trimmedId = targetId.trim();
-	let singleRow = [];
+const getSingleTaskById = (rawInput) => {
+	const isValidId = isValidTaskId(rawInput);
 
-	trimmedId = Number.parseInt(trimmedId, 10);
-
-	if (typeof trimmedId === NaN || Number.isInteger(trimmedId) === false) {
-		throw new Error('[ERROR]Task ID must be an integer');
+	if (!isValidId) {
+		throw new Error("[ERROR] Task ID must be an integer");
 	}
 
-	if (trimmedId < 0) {
-		throw new Error('[ERROR]Task ID must be a positive integer');
-	}
+	let singleRow;
 
 	try {
-		singleRow = db
-			.prepare('SELECT * FROM tasks WHERE id = ?')
-			.get(trimmedId);
+		singleRow = db.prepare("SELECT * FROM tasks WHERE id = ?").get(trimmedId);
+
+		if (singleRow === undefined) {
+			return [`(warn) no tasks found, try adding a task with the 'add' command`];
+		}
 	} catch (error) {
-		throw new Error(
-			"[ERROR] Couldn't read from database, try again.",
-			error
-		);
+		throw new Error("[ERROR] Couldn't read from database, try again.", error);
 	}
 
 	return formatTaskList([singleRow]);
 };
 
-export { getTask };
+export { getSingleTaskById, getAllTasks };
