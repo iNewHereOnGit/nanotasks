@@ -8,7 +8,7 @@
 		"nanotasks": "./index.js"
 	},
 	"scripts": {
-		"dev": "node index.js --experimental-strip-types"
+		"dev": "nodemon index.js "
 	},
 	"keywords": [],
 	"author": "",

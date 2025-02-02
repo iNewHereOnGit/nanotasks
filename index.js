@@ -3,7 +3,7 @@ import * as actions from "./utilities/actionLoader.js";
 import { getInput, rl, splitTokens } from "./utilities/inputReader.js";
 
 console.log(
-	`====================== NanoTasks v1.0.0 =====================\nwelcome to NanoTasks, type 'help' for help\ncontact iNewHereOnGit on GitHub for support\n`
+	`====================== nanotasks v1.0.0 =====================\nwelcome to nanotasks, type 'help' for commands\ncontact iNewHereOnGit on GitHub for support\n`
 );
 
 rl.prompt();

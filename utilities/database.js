@@ -1,5 +1,5 @@
-import Database from 'better-sqlite3';
-const db = new Database('tasks.db');
+import Database from "better-sqlite3";
+const db = new Database("tasks.db");
 
 //initialize tasks table using prepared statement
 try {
@@ -8,11 +8,11 @@ try {
 	).run();
 } catch (error) {
 	console.log(
-		`[ERROR] Failed to initialize Tasks table. Does the database already exist?`
+		`[ERROR] failed to initialize tasks table: ${error.message} Try again or contact iNewHereOnGit on GitHub for support.`
 	);
 	process.exit(-1);
 }
 
-db.pragma('journal_mode = WAL');
+db.pragma("journal_mode = WAL");
 
 export { db };
