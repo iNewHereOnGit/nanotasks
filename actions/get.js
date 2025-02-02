@@ -37,7 +37,7 @@ const getSingleTaskById = (rawInput) => {
 		singleRow = db.prepare("SELECT * FROM tasks WHERE id = ?").get(rawInput);
 
 		if (singleRow === undefined) {
-			return `(warn) no tasks found with ID ${rawInput}, try adding a task with the 'add' command`;
+			return `(warn) no tasks found with id ${rawInput}, try adding a task with the 'add' command`;
 		}
 	} catch (error) {
 		throw new Error("(error) couldn't read from database, try again.", error);
