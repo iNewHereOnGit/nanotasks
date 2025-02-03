@@ -1,15 +1,14 @@
-const sortTasks = (userInput, tasks, ascending) => {
+const sortTasks = (userInput, tasks, sortDirection) => {
 	switch (userInput.trim().toLowerCase()) {
 		case "title":
-			return sortTasksByTitle(tasks, ascending);
+		case "name":
+			return sortTasksByTitle(tasks, sortDirection);
 		case "priority":
-			return sortTasksByPriority(tasks, ascending);
+			return sortTasksByPriority(tasks, sortDirection);
 		case "completed":
-			return sortTasksByCompletion(tasks, ascending);
-		case "":
-			return sortTasksByTitle(tasks, ascending);
+			return sortTasksByCompletion(tasks, sortDirection);
 		default:
-			throw new Error("[ERROR] Invalid sort criteria: must be title, priority or completed");
+			return sortTasksByTitle(tasks, sortDirection);
 	}
 };
 
