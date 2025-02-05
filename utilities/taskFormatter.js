@@ -1,4 +1,4 @@
-const sortTasks = (userInput, tasks, sortDirection) => {
+const sortTasks = (userInput = "title", tasks, sortDirection = true) => {
 	switch (userInput.trim().toLowerCase()) {
 		case "title":
 		case "name":
@@ -7,6 +7,9 @@ const sortTasks = (userInput, tasks, sortDirection) => {
 			return sortTasksByPriority(tasks, sortDirection);
 		case "completed":
 			return sortTasksByCompletion(tasks, sortDirection);
+		case "":
+		case undefined:
+			return sortTasksByTitle(tasks, sortDirection);
 		default:
 			return sortTasksByTitle(tasks, sortDirection);
 	}
