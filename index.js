@@ -52,6 +52,5 @@ rl.on("line", (input) => {
 
 	rl.prompt();
 }).on("close", () => {
-	console.log("exiting NanoTasks, goodbye! contact iNewHereOnGit on GitHub for support");
-	process.exit(0);
+	actions.exitActions.exitApp();
 });
