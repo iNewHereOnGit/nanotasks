@@ -45,7 +45,7 @@ rl.on("line", (input) => {
 			actions.helpActions.helpFunction();
 			break;
 		case "exit":
-			actions.exitApp();
+			actions.exitActions.exitApp();
 			break;
 		default:
 	}
