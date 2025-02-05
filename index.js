@@ -48,6 +48,7 @@ rl.on("line", (input) => {
 			actions.exitActions.exitApp();
 			break;
 		default:
+			console.log(`invalid command, type 'help' for available commands`);
 	}
 
 	rl.prompt();
