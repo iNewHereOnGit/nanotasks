@@ -55,7 +55,7 @@ const filterTasksByPriority = (tasks, targetPriority) => {
 const formatTaskList = (tasks) => {
 	let formattedTasks = [];
 	tasks.forEach((task) => {
-		let formattedTask = "* " + task.title + " - " + task.description + ` [P${task.priority}]`;
+		let formattedTask = "* " + task.title + " - " + task.note + ` [P${task.priority}]`;
 		formattedTasks.push(formattedTask);
 	});
 
