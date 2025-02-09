@@ -1,6 +1,6 @@
 class Task {
-	constructor(name, note, priority, completed, due, created, modified, tag) {
-		this.name = name;
+	constructor(title, note, priority, completed, due, created, modified, tag) {
+		this.title = title;
 		this.note = note;
 		this.priority = priority;
 		this.completed = completed;
