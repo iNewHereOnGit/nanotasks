@@ -54,12 +54,14 @@ const filterTasksByPriority = (tasks, targetPriority) => {
  */
 const formatTaskList = (tasks) => {
 	let formattedTasks = [];
+
 	tasks.forEach((task) => {
-		let formattedTask = "* " + task.title + " - " + task.note + ` [P${task.priority}]`;
+		let completedTaskSymbol = task.completed ? "[✓]" : "[O]";
+		let formattedTask = completedTaskSymbol + " " + task.title + " - " + task.note + ` [P${task.priority}]`;
 		formattedTasks.push(formattedTask);
 	});
 
-	formattedTasks.push("====================== NanoTasks v1.0.0 =====================");
+	formattedTasks.push("====================== tasks =====================");
 	return formattedTasks;
 };
 export { sortTasks, formatTaskList };
