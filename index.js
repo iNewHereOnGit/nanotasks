@@ -54,6 +54,14 @@ rl.on("line", async (input) => {
 		case "exit":
 			actions.exitActions.exitApp();
 			break;
+		case "search":
+			try {
+				const result = await actions.getActions.searchTermByTitleOrNote();
+				console.log(result);
+			} catch (error) {
+				console.log(error);
+			}
+			break;
 		default:
 			console.log(`invalid command, type 'help' for available commands`);
 	}

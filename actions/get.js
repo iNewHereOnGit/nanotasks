@@ -46,4 +46,29 @@ const getSingleTaskById = (rawInput) => {
 	return formatTaskList([singleRow]);
 };
 
-export { getSingleTaskById, getAllTasks };
+const searchTermByTitleOrNote = async () => {
+	let isValidSearchTerm = false;
+	let rawSearchTerm;
+
+	do {
+		rawSearchTerm = await getInput("Search term: ");
+		if (rawSearchTerm.trim().length >= 3) isValidSearchTerm = true;
+		else console.log("[WARN] search term must be at least 3 characters");
+	} while (isValidSearchTerm === false);
+
+	let parsedSearchTerm = rawSearchTerm.trim();
+
+	const results = db
+		.prepare(`SELECT * FROM tasks WHERE title LIKE '%${parsedSearchTerm}%' OR note LIKE '%${parsedSearchTerm}%'`)
+		.all();
+
+	if (results.length === 0) {
+		throw `(warn) no tasks found with term '${parsedSearchTerm}', adjust your search and try again`;
+	} else if (results.length === 1) {
+		return formatTaskList([results[0]]);
+	}
+
+	return formatTaskList(results);
+};
+
+export { getSingleTaskById, getAllTasks, searchTermByTitleOrNote };
