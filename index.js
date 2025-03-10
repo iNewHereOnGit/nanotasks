@@ -8,7 +8,7 @@ console.log(
 
 rl.prompt();
 
-rl.on("line", (input) => {
+rl.on("line", async (input) => {
 	const values = splitTokens(input.trim());
 
 	switch (values[0]) {
@@ -33,7 +33,14 @@ rl.on("line", (input) => {
 
 			break;
 		case "add":
-			actions.addActions.addTask(values);
+			let result;
+			try {
+				result = await actions.addActions.addTask();
+				console.log(result);
+			} catch (error) {
+				console.log(error);
+			}
+
 			break;
 		case "edit":
 			actions.editActions.editTask(values);

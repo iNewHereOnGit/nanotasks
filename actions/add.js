@@ -1,57 +1,46 @@
-import { getInput } from '../utilities/inputReader.js';
-import { db } from '../utilities/database.js';
-import { Task } from '../types/task.js';
-import { DateTime } from 'luxon';
+import { getInput } from "../utilities/inputReader.js";
+import { db } from "../utilities/database.js";
+import { Task } from "../types/task.js";
+import { DateTime } from "luxon";
 
 const addTask = async () => {
-	const name = await getInput('Name: ');
-	let rawDescription = await getInput('Description: ');
+	const name = await getInput("Name: ");
+	let rawDescription = await getInput("Description: ");
+	const priority = await getInput("Priority: ");
+	const tag = await getInput("Tag: ");
 
-	//trim description and name
+	//set defaults for missing fields
 	const trimmedName = name.trim();
 	const trimmedDescription = rawDescription.trim();
+	let parsedPriority = Number.parseInt(priority.trim(), 10);
+	let parsedTag = tag.trim();
+
+	if (isNaN(parsedPriority)) parsedPriority = 0;
+	if (parsedTag.length === 0) parsedTag = null;
 
 	const utcSeconds = DateTime.utc().toUnixInteger();
 
-	if (name === '' || rawDescription === '') {
-		throw new Error(
-			'[ERROR]Task must have a name and description, try making your task again.'
-		);
+	if (name === "") {
+		throw new Error("[ERROR]Task must have a name, try making your task again.");
 	}
 
-	let task = new Task(
-		trimmedName,
-		trimmedDescription,
-		0,
-		0,
-		-1,
-		utcSeconds,
-		utcSeconds
-	);
+	let task = new Task(trimmedName, trimmedDescription, parsedPriority, 0, -1, utcSeconds, utcSeconds, parsedTag);
 	let info;
 
 	try {
 		info = db
 			.prepare(
-				'INSERT INTO tasks (title, description, priority, completed, due, created, modified) VALUES (?,?,?,?,?,?,?)'
+				"INSERT INTO tasks (title, note, tag, priority, completed, due, created, modified) VALUES (?,?,?,?,?,?,?,?)"
 			)
-			.run(
-				task.name,
-				task.description,
-				task.priority,
-				task.completed,
-				task.due,
-				task.created,
-				task.modified
-			);
+			.run(task.title, task.note, task.tag, task.priority, task.completed, task.due, task.created, task.modified);
 	} catch (error) {
-		return '[ERROR] Task could not be added, try again', error;
+		return "[ERROR] Task could not be added, try again", error;
 	}
 
 	if (info.changes >= 1) {
-		return `[Success] Created task '${task.name}'\n[Tip] Use 'get task ${task.name}' or 'edit task ${info.lastInsertRowid}' to update this task\n`;
+		return `[Success] Created task '${task.title}'\n[Tip] Use 'get task ${task.title}' or 'edit task ${info.lastInsertRowid}' to update this task\n`;
 	} else {
-		throw new Error('[ERROR] Task could not be added, try again');
+		throw new Error("[ERROR] Task could not be added, try again");
 	}
 };
 
