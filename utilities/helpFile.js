@@ -88,6 +88,13 @@ const commands = {
 		],
 	},
 
+	dump: {
+		name: "dump",
+		description: "Dump the entire database to a JSON file.",
+		usage: "dump",
+		parameters: null,
+	},
+
 	exit: {
 		name: "exit",
 		description: "Exits the NanoTasks application.",
