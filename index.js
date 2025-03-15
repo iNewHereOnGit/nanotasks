@@ -62,6 +62,13 @@ rl.on("line", async (input) => {
 				console.log(error);
 			}
 			break;
+		case "dump": {
+			const result = actions.dumpActions.dumpDatabase();
+			if (result.err) console.log(result.err);
+			else console.log(result);
+
+			break;
+		}
 		default:
 			console.log(`invalid command, type 'help' for available commands`);
 	}
