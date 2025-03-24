@@ -14,7 +14,7 @@ try {
 	).run();
 } catch (error) {
 	console.log(
-		`[ERROR] failed to initialize tasks table: ${error.message} Try again or contact iNewHereOnGit on GitHub for support.`
+		`[ERROR] failed to initialize database: ${error.message} Try again or contact iNewHereOnGit on GitHub for support.`
 	);
 	process.exit(-1);
 }
