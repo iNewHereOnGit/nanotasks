@@ -24,13 +24,23 @@ const addTask = async () => {
 		throw new Error("[ERROR]Task must have a name, try making your task again.");
 	}
 
-	let task = new Task(trimmedName, trimmedDescription, parsedPriority, 0, -1, utcSeconds, utcSeconds, parsedTag);
+	let task = new Task(
+		trimmedName,
+		trimmedDescription,
+		parsedPriority,
+		0,
+		-1,
+		utcSeconds,
+		utcSeconds,
+		parsedTag,
+		"default"
+	);
 	let info;
 
 	try {
 		info = db
 			.prepare(
-				"INSERT INTO tasks (title, note, tag, priority, completed, due, created, modified) VALUES (?,?,?,?,?,?,?,?)"
+				"INSERT INTO tasks (title, note, tag, priority, completed, due, created, modified, list) VALUES (?,?,?,?,?,?,?,?,?)"
 			)
 			.run(task.title, task.note, task.tag, task.priority, task.completed, task.due, task.created, task.modified);
 	} catch (error) {

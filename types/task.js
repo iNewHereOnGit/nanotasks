@@ -1,5 +1,5 @@
 class Task {
-	constructor(title, note, priority, completed, due, created, modified, tag) {
+	constructor(title, note, priority, completed, due, created, modified, tag, list = "default") {
 		this.title = title;
 		this.note = note;
 		this.priority = priority;
@@ -8,6 +8,7 @@ class Task {
 		this.created = created;
 		this.modified = modified;
 		this.tag = tag;
+		this.list = list;
 	}
 }
 
