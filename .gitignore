@@ -132,6 +132,9 @@ dist
 tasks.db
 tasks.db-shm
 tasks.db-wal
+nanotasks.db
+nanotasks.db-shm
+nanotasks.db-wal
 
 .vscode
 
